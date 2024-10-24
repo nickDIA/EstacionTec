@@ -73,6 +73,7 @@ CREATE TABLE "Cajon" (
     "id" TEXT NOT NULL,
     "etiqueta" TEXT NOT NULL,
     "disponible" BOOLEAN NOT NULL,
+    "discapacitado" BOOLEAN NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "estacionamientoId" TEXT NOT NULL,

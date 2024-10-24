@@ -8,7 +8,7 @@ import ModeToggler from './ModeToggler'
 const drawerWidth = 240
 const navItems = [
     {
-        display: 'Inicio',
+        display: 'Estado',
         route: '/'
     },
     {

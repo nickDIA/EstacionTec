@@ -35,24 +35,29 @@ const CuadroCajones:FC<CuadroCajonesProps> = ({patron, cajones, loading, modoGua
 
     const { palette:{mode, background:{default:back}} } = useTheme()
     
-    const color = (esCajon: boolean, disponible: boolean) => {
+    const color = (esCajon: boolean, disponible: boolean, esDiscapacitado: boolean) => {
         if(!esCajon) return back
 
         const colores = {
             dark: {
                 ocupado: '#F87171',
                 disponible: '#4ADE80',
-                cargando: '#E5E5E5'
+                cargando: '#E5E5E5',
+                discapacitado: '#031fab'
             },
 
             light: {
                 ocupado: '#EF4444',
                 disponible: '#22C55E',
-                cargando: '#A3A3A3'
+                cargando: '#A3A3A3',
+                discapacitado: '#031fab'
             }
         }
-        
-        return colores[mode][loading ? 'cargando' : (disponible ? 'disponible' : 'ocupado')]
+
+        if (loading) return colores[mode]['cargando']
+        if (!disponible) return colores[mode]['ocupado']
+        if (esDiscapacitado) return colores[mode]['discapacitado']
+        return colores[mode]['disponible']  
     }
 
     const randomDisponibility = () => [true, false][Math.floor(Math.random() * 2)]
@@ -64,6 +69,15 @@ const CuadroCajones:FC<CuadroCajonesProps> = ({patron, cajones, loading, modoGua
         const cajon = cajones.find(cajon => cajon.etiqueta === etiqueta)
 
         return cajon?.disponible ?? false
+    }
+
+    const cajonDiscapacitado = (etiqueta: string) => {
+        if(typeof cajones === 'undefined') return randomDisponibility()
+        if(cajones.length === 0) return randomDisponibility()
+
+        const cajon = cajones.find(cajon => cajon.etiqueta === etiqueta)
+
+        return cajon?.discapacitado ?? false
     }
 
     return (
@@ -85,7 +99,7 @@ const CuadroCajones:FC<CuadroCajonesProps> = ({patron, cajones, loading, modoGua
                                 >
                                     <Box 
                                         sx={{
-                                            background: color(true, cajonDisponible(etiqueta)),
+                                            background: color(true, cajonDisponible(etiqueta), cajonDiscapacitado(etiqueta)),
                                             flex: '0 0 3rem',
                                             display: 'flex',
                                             alignItems: 'center',
@@ -103,7 +117,7 @@ const CuadroCajones:FC<CuadroCajonesProps> = ({patron, cajones, loading, modoGua
                                 </Tooltip>
                             ) : (
                                 <Box key={index2} sx={{
-                                    background: color(etiqueta !== '', cajonDisponible(etiqueta)),
+                                    background: color(etiqueta !== '', cajonDisponible(etiqueta), cajonDiscapacitado(etiqueta)),
                                     flex: '0 0 3rem',
                                     display: 'flex',
                                     alignItems: 'center',

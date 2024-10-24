@@ -18,7 +18,7 @@ const ListaEstacionamientos:FC<ListaEstacionamientosProps> = ({estacionamientos}
                 estacionamientos.map(estacionamiento => (
                     <Card
                         key={estacionamiento.id}
-                        sx={{height: '100%'}}
+                        sx={{height: '100%', border: '2px solid CadetBlue'}}
                     >
                         <CardActionArea 
                             sx={{display: 'flex', height: '100%'}}

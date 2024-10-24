@@ -5,7 +5,7 @@ function obtenerLetraDeFila(numFila: number){
 
 export default function traducirPatron(patron: string){    
     let filaActual = 1
-    const cajones = patron.split('\n').map(fila => {
+    const cajones = patron.split('2').map(fila => {
         if(fila === '') return ['']
 
         let columnaActual = 1
